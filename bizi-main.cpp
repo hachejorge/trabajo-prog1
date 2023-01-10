@@ -212,7 +212,7 @@ void ejecutarDestinos(const string fichero){
     Estacion estaciones[NUM_ESTACIONES];
     if(leerEstaciones(FICHERO_ESTACIONES,estaciones)){
         unsigned viajes[NUM_ESTACIONES][NUM_ESTACIONES], destinosFrecuentes[NUM_ESTACIONES];
-        if(contarUsosEstaciones(fichero, estaciones)){
+        if(contarViajesOrigenDestino(fichero,viajes)){
             calcularDestinosMasFrecuentes(viajes, destinosFrecuentes);
             if(ficheroDestinos==""){
                 cout << endl;    
