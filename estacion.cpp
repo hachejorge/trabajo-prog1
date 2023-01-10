@@ -33,6 +33,7 @@ bool leerEstaciones(const string nombreFicheroEstaciones, Estacion estaciones[])
         string ignorar;
         getline(f,ignorar); // Se lee la cabecera
         for(unsigned i = 0; i < NUM_ESTACIONES; i++){ // Repetimos el proceso NUM_ESTACIONES veces
+            estaciones[i].usos = 0;
             unsigned idAux;
             getline(f,ignorar,'-');  
             getline(f,ignorar,'-'); 
@@ -80,8 +81,12 @@ bool contarUsosEstaciones(const string nombreFicheroUsos, Estacion estaciones[])
         getline(f,cabecera);
         UsoBizi uso;
         while(leerUso(f,uso)){
-            estaciones[uso.idRetiro-1].usos++;
-            estaciones[uso.idAnclaje-1].usos++;
+            if(uso.idAnclaje <= NUM_ESTACIONES ){
+                estaciones[uso.idAnclaje-1].usos++;
+            }
+            if(uso.idRetiro <= NUM_ESTACIONES){    
+                estaciones[uso.idRetiro-1].usos++;
+            }      
         }
         f.close();
         return true;
@@ -177,7 +182,9 @@ bool contarViajesOrigenDestino(const string nombreFicheroUsos,
         getline(f,cabecera);
         UsoBizi uso;
         while(leerUso(f,uso)){
-            viajes[uso.idRetiro-1][uso.idAnclaje-1]++;
+            if(uso.idAnclaje <= NUM_ESTACIONES && uso.idRetiro <= NUM_ESTACIONES){            
+                viajes[uso.idRetiro-1][uso.idAnclaje-1]++;
+            }
         }
         f.close();
         return true;
